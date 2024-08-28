@@ -3,7 +3,7 @@ import { addDoc, collection, doc, Timestamp, updateDoc } from "firebase/firestor
 import getUserStats from "./getUserStats";
 import getDailyHabitsForDailyStats from "./getDailyHabitsForDailyStats";
 
-const useCreateDailyStats = async (user) => {
+const createDailyStats = async (user) => {
   const now = new Date();
   const todaysDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   const day = todaysDate.getDay()
@@ -37,4 +37,4 @@ const useCreateDailyStats = async (user) => {
   }
 }
 
-export default useCreateDailyStats
+export default createDailyStats

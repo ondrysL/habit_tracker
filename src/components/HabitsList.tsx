@@ -1,8 +1,9 @@
 import { useState } from "react"
-import Habit from "./Habit";
 import { IoMdArrowDropdown } from "react-icons/io";
+import Habit from "./Habit";
+import { HabitListProps } from "../types/HabitList";
 
-const HabitsList = ({ habits, tittle, isToggle, listType }) => {
+const HabitsList = ({ habits, tittle, isToggle, listType }: HabitListProps) => {
   const [show, setShow] = useState(true)
 
   return (

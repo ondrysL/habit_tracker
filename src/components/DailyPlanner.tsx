@@ -1,47 +1,16 @@
-import { useEffect, useState } from "react"
-import { onSnapshot, doc } from "firebase/firestore"
+import { useState } from "react"
 import { Component as PieChart } from "../components/PieChart"
 import HabitsList from "./HabitsList"
-import { db } from "../config/FirebaseConfig"
-import getUserStats from "../hooks/getUserStats.tsx"
-import filterDailyHabitsByIsDone from "../hooks/filterDailyHabitsByIsDone"
 import { useAuth } from "../contexts/AuthProvider.tsx"
 import { HabitType } from "../types/enums.ts"
+import useGetDailyHabits from "../hooks/useGetDailyHabits.tsx"
 
 const DailyPlanner = () => {
   const { user } = useAuth()
   const [finishedHabits, setFinishedHabits] = useState([])
   const [unfinishedHabits, setUnfinishedHabits] = useState([])
 
-  useEffect(() => {
-    let unsubscribe = null;
-
-    const getDailyHabits = async () => {
-      try {
-        const userStats = await getUserStats(user)
-        const todaysStat = userStats.dailyStats[userStats.dailyStats.length - 1]
-        const todaysStatId = todaysStat.dailyStatId
-
-        unsubscribe = onSnapshot(doc(db, "dailyStats", todaysStatId), (doc) => {
-          const dailyStat = doc.data()
-          const { finished, unfinished } = filterDailyHabitsByIsDone(dailyStat?.habits)
-          setFinishedHabits(finished)
-          setUnfinishedHabits(unfinished)
-
-        })
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    getDailyHabits()
-
-    return () => {
-      if (unsubscribe) {
-        unsubscribe()
-      }
-    }
-  }, [])
+  useGetDailyHabits(user, setFinishedHabits, setUnfinishedHabits)
 
   return (
     <section className="flex flex-col gap-y-4 bg-white p-8 shadow-lg rounded-[20px] max-w-[550px] md:w-[550px]">

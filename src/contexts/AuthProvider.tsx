@@ -1,8 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react"
 import { auth } from "../config/FirebaseConfig"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
-import useCreateUserStats from "../hooks/useCreateUserStats"
-import useCreateDailyStats from "../hooks/useCreateDailyStats"
+import createUserStats from "../hooks/createUserStats"
 
 export const AuthContext = createContext(null)
 
@@ -28,7 +27,7 @@ const AuthProvider = ({ children }) => {
   const signInEmailPass = async (email: string, password: string) => {
     try {
       setLoading(true)
-      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password)
     } catch (err) {
       setError(err.message)
       console.log(err)
@@ -39,7 +38,7 @@ const AuthProvider = ({ children }) => {
     try {
       setLoading(true)
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      await useCreateUserStats(userCredential.user)
+      await createUserStats(userCredential.user)
     } catch (err) {
       setError(err.message)
       console.log(err)

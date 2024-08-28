@@ -3,7 +3,7 @@ import { useAuth } from "./contexts/AuthProvider"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import Topbar from "./components/Topbar"
-import useCreateDailyStats from "./hooks/useCreateDailyStats"
+import createDailyStats from "./hooks/createDailyStats"
 
 function App() {
   const { user } = useAuth()
@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const createDailyStatAndNavigate = async () => {
       if (user) {
-        await useCreateDailyStats(user)
+        await createDailyStats(user)
         navigate("/homepage")
       } else {
         navigate("/login")

@@ -1,7 +1,7 @@
 import { db } from "../config/FirebaseConfig"
 import { collection, addDoc } from "firebase/firestore"
 
-const useCreateUserStats = async (user) => {
+const createUserStats = async (user) => {
   const userStatsRef = collection(db, "userStats")
   const userStats = {
     userId: user.uid,
@@ -15,4 +15,4 @@ const useCreateUserStats = async (user) => {
   }
 }
 
-export default useCreateUserStats
+export default createUserStats

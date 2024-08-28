@@ -3,8 +3,8 @@ import useAddHabit from "../hooks/useAddHabit"
 import { useAuth } from "../contexts/AuthProvider"
 
 const HabitForm = () => {
-  const [frequencyType, setFrequencyType] = useState("Daily")
-  const [error, setError] = useState(false)
+  const [frequencyType, setFrequencyType] = useState<string>("Daily")
+  const [error, setError] = useState<boolean>(false)
   const { user } = useAuth()
 
   const setInputsEmpty = (e) => {

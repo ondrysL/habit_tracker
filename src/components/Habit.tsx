@@ -1,28 +1,12 @@
 import { MdDone } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { HabitType } from "../types/enums";
-import { arrayRemove, collection, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../config/FirebaseConfig";
 import { useAuth } from "../contexts/AuthProvider";
 import getUserStats from "../hooks/getUserStats";
 import { MdDeleteOutline } from "react-icons/md";
-
-interface HabitProps {
-  name: string,
-  type: string,
-  time: {
-    hour: number,
-    minute: number
-  }
-  frequency: {
-    type: string,
-    days: [string]
-  },
-  isDone: boolean,
-  listType: HabitType,
-  id: string,
-  index: number
-}
+import { HabitProps } from "../types/Habit";
 
 const formatTime = (hours: number, minutes: number) => {
   let hoursText = hours.toString(10);
